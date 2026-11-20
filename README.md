@@ -2,7 +2,7 @@
 
 **Live host observability with early-warning signals and allowlisted remediation.**
 
-UptimeIQ is a full-stack infrastructure monitoring MVP: a lightweight agent streams metrics over WebSocket, the API stores history and evaluates alerts, and the dashboard shows live fleet health. It also includes **early failure-risk signals** (honestly labeled, not claimed outage prediction) and a **controlled remediation** workflow limited to two approved actions.
+UptimeIQ is a full-stack infrastructure monitoring MVP: a lightweight agent streams metrics over WebSocket, the API stores history and evaluates alerts, and the dashboard shows live fleet health. It also includes **early failure-risk signals**.
 
 > **Demo scope:** This is a portfolio / interview demo, not a production SaaS. Auth is a single demo user. Do not expose it to the public internet without hardening.
 
@@ -19,47 +19,36 @@ Most monitoring demos stop at charts. This project pushes one step further:
 
 ---
 
-## Quick start (3 commands)
+## Quick start
 
-**Prereqs:** Python 3.11+, Node 18+, Go 1.22+ (for the Go agent), optional Docker.
+**One liner (Windows):**
 
 ```powershell
-# 1) API (from repo root)
-cd backend
-pip install -r requirements.txt
-copy .env.example .env
-python -m uvicorn app.main:app --host 127.0.0.1 --port 8002
-
-# 2) UI (new terminal)
-cd frontend
-npm install
-copy .env.example .env
-npm run dev
-
-# 3) Agent (new terminal) — Go preferred
-cd agent-go
-$env:AGENT_WS_URL="ws://localhost:8002/ws/metrics"
-go run .
+.\start.ps1
 ```
 
-Open **http://localhost:5173** → Log in with the demo user → complete setup if prompted.
+**One liner (macOS / Linux):**
 
-### Demo login
+```bash
+chmod +x start.sh && ./start.sh
+```
+
+**Or with Docker:**
+
+```bash
+docker compose up --build
+```
+
+Then open **http://localhost:5173** and sign in.
 
 | Field | Value |
 |-------|-------|
 | Username | `admin` |
 | Password | `admin123` |
 
-Plaintext demo auth only. See [Demo scope](#demo-scope--limitations).
+Demo auth only (plaintext MVP). See [Demo scope](#demo-scope--limitations).
 
-### Docker (optional)
-
-```powershell
-docker compose up --build
-```
-
-Requires Docker Desktop. Compose brings up Postgres, API, UI, and a sample agent.
+Prereqs for `start.ps1` / `start.sh`: Python 3.11+, Node 18+, Go 1.22+. Docker Compose needs Docker Desktop.
 
 ---
 
