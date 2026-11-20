@@ -155,16 +155,6 @@ python docs/verify.py
 
 ---
 
-## Demo video
-
-Record a 60–90s walkthrough using [docs/DEMO.md](docs/DEMO.md).
-
-Add your video link here when ready:
-
-- **Loom / YouTube:** _TODO — paste URL_
-
----
-
 ## Demo scope & limitations
 
 - Single demo user; password compared in plaintext (MVP)
