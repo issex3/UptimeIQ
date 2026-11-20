@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Smoke-check a running Monitor API. Demo auth is MVP-only."""
+"""Smoke-check a running UptimeIQ API. Demo auth is MVP-only."""
 
 from __future__ import annotations
 

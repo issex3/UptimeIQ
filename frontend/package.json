@@ -1,5 +1,5 @@
 {
-  "name": "monitor-dashboard",
+  "name": "uptimeiq-dashboard",
   "private": true,
   "version": "1.0.0",
   "type": "module",

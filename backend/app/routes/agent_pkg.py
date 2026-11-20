@@ -31,14 +31,14 @@ GO_FILES = (
     "README.md",
 )
 
-README = """Monitor host agent
+README = """UptimeIQ host agent
 ====================
 
 Preferred (Go — lightweight, heartbeats, remediation):
 
   cd agent-go
   go run .
-  # or: go build -o monitor-agent.exe . && .\\monitor-agent.exe
+  # or: go build -o uptimeiq-agent.exe . && .\\uptimeiq-agent.exe
 
 Python fallback:
 
@@ -76,25 +76,27 @@ async def download_agent(
 
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-        zf.writestr("monitor-agent/README.txt", README)
+        zf.writestr("uptimeiq-agent/README.txt", README)
         for name in PYTHON_FILES:
             path = py_root / name
             if path.is_file():
-                zf.write(path, arcname=f"monitor-agent/agent/{name}")
+                zf.write(path, arcname=f"uptimeiq-agent/agent/{name}")
         if go_root.is_dir():
             for name in GO_FILES:
                 path = go_root / name
                 if path.is_file():
-                    zf.write(path, arcname=f"monitor-agent/agent-go/{name}")
-            exe = go_root / "monitor-agent.exe"
-            if exe.is_file():
-                zf.write(exe, arcname="monitor-agent/agent-go/monitor-agent.exe")
+                    zf.write(path, arcname=f"uptimeiq-agent/agent-go/{name}")
+            for exe_name in ("uptimeiq-agent.exe", "monitor-agent.exe"):
+                exe = go_root / exe_name
+                if exe.is_file():
+                    zf.write(exe, arcname="uptimeiq-agent/agent-go/uptimeiq-agent.exe")
+                    break
 
     buf.seek(0)
     return StreamingResponse(
         buf,
         media_type="application/zip",
         headers={
-            "Content-Disposition": 'attachment; filename="monitor-agent.zip"',
+            "Content-Disposition": 'attachment; filename="uptimeiq-agent.zip"',
         },
     )

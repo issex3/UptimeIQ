@@ -6,14 +6,14 @@ Use this when recording a Loom / YouTube clip for the README.
 
 1. Backend on `:8002`, frontend on `:5173`, Go agent connected  
 2. Browser at `http://localhost:5173` (logged out)  
-3. Clear `localStorage.removeItem("monitor_setup_complete")` if you want to show setup  
+3. Clear `localStorage.removeItem("uptimeiq_setup_complete")` if you want to show setup  
 4. Close Slack/email notifications  
 
 ## Script
 
 | Time | Say | Show |
 |------|-----|------|
-| 0:00 | “This is Monitor — live host observability with early-warning signals and allowlisted remediation.” | Landing page |
+| 0:00 | “This is UptimeIQ — live host observability with early-warning signals and allowlisted remediation.” | Landing page |
 | 0:08 | “Demo login only — not production auth.” | Login (`admin` / `admin123`) |
 | 0:15 | “First-run setup: download the agent package — continue stays locked until download.” | Setup slides 1–2, click download |
 | 0:30 | “Run the Go agent; the host appears live.” | Terminal `go run .` + dashboard device list |

@@ -27,6 +27,8 @@ frontend/dist/
 frontend/build/
 agent-go/monitor-agent
 agent-go/monitor-agent.exe
+agent-go/uptimeiq-agent
+agent-go/uptimeiq-agent.exe
 agent-go/*.exe
 **/*.exe
 !agent-go/README.md
@@ -52,3 +54,4 @@ htmlcov/
 # Agent package scratch
 *.zip
 monitor-agent.zip
+uptimeiq-agent.zip

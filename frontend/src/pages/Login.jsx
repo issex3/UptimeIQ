@@ -44,12 +44,12 @@ export default function Login() {
         </div>
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500/20 to-sky-500/20 ring-1 ring-white/10">
-            <span className="font-display text-lg tracking-[0.2em] text-teal-200">
-              M
+            <span className="font-display text-sm tracking-tight text-teal-200">
+              IQ
             </span>
           </div>
           <h1 className="text-2xl font-semibold tracking-tight text-white">
-            Monitor
+            UptimeIQ
           </h1>
           <p className="mt-1 text-sm text-zinc-500">
             Sign in to view live infrastructure insight

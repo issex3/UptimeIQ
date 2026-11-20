@@ -6,7 +6,7 @@ import { getToken } from "../lib/api.js";
 const FEATURES = [
   {
     title: "Live telemetry",
-    text: "CPU, memory, disk, and network stream into one calm surface—no tab hopping.",
+    text: "CPU, memory, disk, and network stream into one calm surface. No tab hopping.",
   },
   {
     title: "Process context",
@@ -14,7 +14,7 @@ const FEATURES = [
   },
   {
     title: "Smart alerts",
-    text: "Severity-first alerts with less noise, so the right incident rises first.",
+    text: "Severity first alerts with less noise, so the right incident rises first.",
   },
   {
     title: "Fleet view",
@@ -26,29 +26,76 @@ const STEPS = [
   {
     n: "01",
     title: "Install the agent",
-    text: "Lightweight collectors on each host. Minutes, not a migration project.",
+    text: "Drop a lightweight Go agent on each host. It streams metrics, heartbeats, and can receive allowlisted remediation commands.",
   },
   {
     n: "02",
-    title: "Watch live signals",
-    text: "Metrics, processes, and connections update as the fleet breathes.",
+    title: "Predict pressure early",
+    text: "UptimeIQ watches trajectories: disk fill, memory growth, latency decay, recurring alerts. You see hosts trending toward downtime before they fall over.",
   },
   {
     n: "03",
-    title: "Warn, then act safely",
-    text: "Early-warning signals and allowlisted remediations — never unrestricted shell.",
+    title: "Remediate with a plan",
+    text: "Propose, approve, execute, verify. Only restart_service and restart_container are allowed. Everything is audited.",
+  },
+];
+
+const PREDICTION_SIGNALS = [
+  {
+    title: "Disk exhaustion trajectory",
+    detail: "Projects hours to full from fill rate so you catch storage failure before writes die.",
+  },
+  {
+    title: "Unusual memory growth",
+    detail: "Spots rising memory slopes that often precede OOM kills and restarts.",
+  },
+  {
+    title: "Network deterioration",
+    detail: "Compares recent latency to the earlier window to flag degrading paths.",
+  },
+  {
+    title: "Recurring failure patterns",
+    detail: "Surfaces alert types that keep firing, common precursors to larger outages.",
+  },
+];
+
+const REMEDIATION_STEPS = [
+  {
+    n: "01",
+    title: "Detect",
+    text: "Alerts and risk signals identify pressure on a host or service.",
+  },
+  {
+    n: "02",
+    title: "Propose",
+    text: "An allowlisted action is proposed with a reason and evidence trail.",
+  },
+  {
+    n: "03",
+    title: "Approve",
+    text: "A human approves before anything runs. No silent automation.",
+  },
+  {
+    n: "04",
+    title: "Execute",
+    text: "The agent runs only restart_service or restart_container.",
+  },
+  {
+    n: "05",
+    title: "Verify",
+    text: "UptimeIQ checks whether pressure cleared, then records the audit.",
   },
 ];
 
 const DEVICES = [
-  { id: "edge-eu-2", status: "healthy", cpu: 28, mem: 54 },
-  { id: "api-core-1", status: "watch", cpu: 71, mem: 66 },
-  { id: "batch-west", status: "healthy", cpu: 41, mem: 48 },
-  { id: "cache-a3", status: "healthy", cpu: 19, mem: 72 },
+  { id: "edge eu 2", status: "healthy", cpu: 28, mem: 54 },
+  { id: "api core 1", status: "watch", cpu: 71, mem: 66 },
+  { id: "batch west", status: "healthy", cpu: 41, mem: 48 },
+  { id: "cache a3", status: "healthy", cpu: 19, mem: 72 },
 ];
 
 const SIGNALS = [
-  { t: "12s", text: "edge-eu-2 latency recovered under 25ms", tone: "ok" },
+  { t: "12s", text: "edge eu 2 latency recovered under 25ms", tone: "ok" },
   { t: "41s", text: "memory pressure grouped across 4 hosts", tone: "warn" },
   { t: "2m", text: "agent heartbeat healthy on 1,264 devices", tone: "ok" },
 ];
@@ -232,7 +279,7 @@ function HeroVisual({ reduceMotion }) {
 
           <div className="mt-8 border-t border-white/[0.06] pt-5">
             <p className="text-xs leading-relaxed text-zinc-500">
-              Ops, security, and performance share one timeline—so triage starts
+              Ops, security, and performance share one timeline so triage starts
               from the same picture.
             </p>
           </div>
@@ -271,11 +318,17 @@ export default function Landing() {
             to="/"
             className="font-display text-sm font-semibold tracking-[0.32em] text-white"
           >
-            MONITOR
+            UptimeIQ
           </Link>
           <div className="hidden items-center gap-8 text-xs text-zinc-400 md:flex">
             <a href="#features" className="transition hover:text-white">
               Features
+            </a>
+            <a href="#predict" className="transition hover:text-white">
+              Prediction
+            </a>
+            <a href="#remediation" className="transition hover:text-white">
+              Remediation
             </a>
             <a href="#how" className="transition hover:text-white">
               How it works
@@ -307,9 +360,9 @@ export default function Landing() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="font-display text-base font-semibold tracking-[0.4em] text-teal-300 sm:text-lg"
+              className="font-display text-base font-semibold tracking-[0.18em] text-teal-300 sm:text-lg"
             >
-              MONITOR
+              UptimeIQ
             </motion.p>
 
             <motion.h1
@@ -329,7 +382,7 @@ export default function Landing() {
               transition={{ duration: 0.55, delay: 0.14 }}
               className="mt-6 max-w-lg text-base leading-relaxed text-zinc-400 sm:text-lg"
             >
-              Real-time host, process, and network insight—organized so operators
+              Real time host, process, and network insight, organized so operators
               move from signal to action without the noise.
             </motion.p>
 
@@ -379,7 +432,7 @@ export default function Landing() {
               Signal over spectacle.
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-zinc-400 sm:text-base">
-              A quieter interface for louder systems—built around what you need
+              A quieter interface for louder systems, built around what you need
               during an incident, not a marketing deck.
             </p>
           </motion.div>
@@ -410,6 +463,145 @@ export default function Landing() {
           </div>
         </section>
 
+        <section id="predict" className="border-y border-white/[0.08] bg-[#070a0e]">
+          <div className="mx-auto grid max-w-7xl gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.55 }}
+            >
+              <p className="font-display text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+                Prediction
+              </p>
+              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+                See hosts trending toward downtime.
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400 sm:text-base">
+                UptimeIQ turns minute level history into early warning risk
+                signals: disk fill trajectories, memory growth, latency decay,
+                and recurring alert patterns. Intervene before users feel an
+                outage.
+              </p>
+              <div className="mt-8 border border-white/[0.08] bg-black/30 p-5">
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                      Example risk posture
+                    </p>
+                    <p className="mt-2 font-display text-4xl font-semibold text-amber-200">
+                      68
+                    </p>
+                    <p className="mt-1 text-xs text-zinc-500">elevated · api core 1</p>
+                  </div>
+                  <div className="text-right text-xs text-zinc-400">
+                    <p>~11h to disk 95%</p>
+                    <p className="mt-1">memory +3.2%/h</p>
+                    <p className="mt-1">latency 42 to 91ms</p>
+                  </div>
+                </div>
+                <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
+                  <motion.div
+                    className="h-full rounded-full bg-gradient-to-r from-teal-400 via-amber-300 to-rose-400"
+                    initial={{ width: "0%" }}
+                    whileInView={{ width: "68%" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.1, ease: "easeOut" }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="divide-y divide-white/[0.08] border-y border-white/[0.08]">
+              {PREDICTION_SIGNALS.map((s, i) => (
+                <motion.article
+                  key={s.title}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.4, delay: i * 0.06 }}
+                  className="py-5"
+                >
+                  <h3 className="font-display text-lg font-medium text-white">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                    {s.detail}
+                  </p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="remediation" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.55 }}
+            className="max-w-2xl"
+          >
+            <p className="font-display text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+              Remediation plan
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+              Fix with a safety rail, not a blank shell.
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-zinc-400 sm:text-base">
+              When a host is failing, UptimeIQ can propose a controlled action.
+              Only two operations are allowlisted:{" "}
+              <span className="text-zinc-200">restart_service</span> and{" "}
+              <span className="text-zinc-200">restart_container</span>. Everything
+              else is rejected.
+            </p>
+          </motion.div>
+
+          <div className="mt-14 grid gap-3 lg:grid-cols-5">
+            {REMEDIATION_STEPS.map((step, i) => (
+              <motion.div
+                key={step.n}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{ duration: 0.45, delay: i * 0.07 }}
+                className="border border-white/[0.08] bg-white/[0.02] p-4"
+              >
+                <p className="font-display text-xs tracking-[0.2em] text-teal-400/90">
+                  {step.n}
+                </p>
+                <h3 className="mt-3 font-display text-base font-medium text-white">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-zinc-400">
+                  {step.text}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.45, delay: 0.15 }}
+            className="mt-8 grid gap-4 border border-white/[0.08] bg-[#070a0e] p-5 sm:grid-cols-3"
+          >
+            {[
+              ["Allowed", "restart_service · restart_container"],
+              ["Forbidden", "Arbitrary shell / AI run commands"],
+              ["Audit", "Propose, approve, execute, verify"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                  {label}
+                </p>
+                <p className="mt-2 text-sm text-zinc-200">{value}</p>
+              </div>
+            ))}
+          </motion.div>
+        </section>
+
         <section id="how" className="relative overflow-hidden border-y border-white/[0.08] bg-[#070a0e]">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(45,212,191,0.06),transparent_55%)]" />
           <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
@@ -418,13 +610,18 @@ export default function Landing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ duration: 0.55 }}
+              className="max-w-2xl"
             >
               <p className="font-display text-[11px] uppercase tracking-[0.28em] text-zinc-500">
                 How it works
               </p>
-            <h2 className="mt-3 max-w-xl font-display text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-              Install. Observe. Act carefully.
-            </h2>
+              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+                Install. Predict. Remediate.
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                One loop from agent install to early downtime warnings to a
+                controlled remediation plan, without handing the AI a blank shell.
+              </p>
             </motion.div>
 
             <ol className="relative mt-16 grid gap-10 md:grid-cols-3 md:gap-8">
@@ -444,7 +641,9 @@ export default function Landing() {
                   <h3 className="mt-5 font-display text-xl font-medium text-white">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">{step.text}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                    {step.text}
+                  </p>
                 </motion.li>
               ))}
             </ol>
@@ -482,7 +681,7 @@ export default function Landing() {
 
       <footer className="border-t border-white/[0.06] py-8">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 text-xs text-zinc-600 sm:px-6 lg:px-8">
-          <span className="font-display tracking-[0.24em] text-zinc-500">MONITOR</span>
+          <span className="font-display tracking-[0.14em] text-zinc-500">UptimeIQ</span>
           <span>Live infrastructure insight</span>
         </div>
       </footer>

@@ -1,1 +1,1 @@
-"""Monitor SaaS backend application package."""
+"""UptimeIQ backend application package."""

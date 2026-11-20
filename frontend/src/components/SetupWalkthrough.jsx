@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getToken } from "../lib/api.js";
 
-const SETUP_KEY = "monitor_setup_complete";
+const SETUP_KEY = "uptimeiq_setup_complete";
 
 export function isSetupComplete() {
   return localStorage.getItem(SETUP_KEY) === "1";
@@ -17,7 +17,7 @@ const SLIDES = [
     id: "welcome",
     step: "01",
     title: "Connect your first host",
-    body: "Monitor needs a lightweight agent on each machine you want to watch. This takes about a minute.",
+    body: "UptimeIQ needs a lightweight agent on each machine you want to watch. This takes about a minute.",
   },
   {
     id: "download",
@@ -47,7 +47,7 @@ async function downloadAgentZip() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "monitor-agent.zip";
+  a.download = "uptimeiq-agent.zip";
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -152,7 +152,7 @@ export default function SetupWalkthrough({ deviceCount = 0, onComplete }) {
                       ? "Preparing download…"
                       : downloaded
                         ? "Download again"
-                        : "Download monitor-agent.zip"}
+                        : "Download uptimeiq-agent.zip"}
                   </button>
                   {downloaded ? (
                     <p className="text-center text-xs font-medium text-teal-300">
@@ -179,7 +179,7 @@ export default function SetupWalkthrough({ deviceCount = 0, onComplete }) {
                       cd agent-go && go run .
                     </code>
                     <p className="mt-2 text-[11px] text-zinc-500">
-                      Or run <code className="text-zinc-400">monitor-agent.exe</code> /
+                      Or run <code className="text-zinc-400">uptimeiq-agent.exe</code> /
                       Python <code className="text-zinc-400">agent/run.py</code>. Leave
                       the terminal open.
                     </p>

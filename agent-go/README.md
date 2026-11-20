@@ -1,4 +1,4 @@
-# Monitor agent (Go)
+# UptimeIQ agent (Go)
 
 Lightweight distributed agent: metrics, heartbeats, short offline buffer, allowlisted remediation.
 
@@ -9,7 +9,8 @@ $env:AGENT_WS_URL="ws://localhost:8002/ws/metrics"
 $env:DEVICE_ID="my-host"
 go run .
 # or
-.\monitor-agent.exe
+go build -o uptimeiq-agent.exe .
+.\uptimeiq-agent.exe
 ```
 
 ## Env

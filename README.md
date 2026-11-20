@@ -1,8 +1,8 @@
-# Monitor
+# UptimeIQ
 
 **Live host observability with early-warning signals and allowlisted remediation.**
 
-Monitor is a full-stack infrastructure monitoring MVP: a lightweight agent streams metrics over WebSocket, the API stores history and evaluates alerts, and the dashboard shows live fleet health. It also includes **early failure-risk signals** (honestly labeled, not claimed outage prediction) and a **controlled remediation** workflow limited to two approved actions.
+UptimeIQ is a full-stack infrastructure monitoring MVP: a lightweight agent streams metrics over WebSocket, the API stores history and evaluates alerts, and the dashboard shows live fleet health. It also includes **early failure-risk signals** (honestly labeled, not claimed outage prediction) and a **controlled remediation** workflow limited to two approved actions.
 
 > **Demo scope:** This is a portfolio / interview demo, not a production SaaS. Auth is a single demo user. Do not expose it to the public internet without hardening.
 
@@ -71,7 +71,7 @@ flowchart LR
     GoAgent[Go agent]
     PyAgent[Python agent]
   end
-  subgraph platform [Monitor platform]
+  subgraph platform [UptimeIQ platform]
     WS[WebSocket hub]
     API[FastAPI]
     DB[(SQLite or Postgres)]
@@ -155,7 +155,7 @@ docker-compose.yml
 cd backend
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
-pytest -q
+python -m pytest -q
 ```
 
 Or smoke the running API:
@@ -198,4 +198,4 @@ Add your video link here when ready:
 
 ## License
 
-MIT (or your preferred license).
+MIT
